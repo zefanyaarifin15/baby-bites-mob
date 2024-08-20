@@ -12,7 +12,7 @@ class FetchAllRecipesUseCase {
         self.recipeRepository = recipeRepository
     }
 
-    func execute(completion: @escaping (Result<[Recipe], Error>) -> Void) {
-        recipeRepository.fetchRecipes(completion: completion)
+    func execute(ingredientID: String, completion: @escaping (Result<[Recipe], Error>) -> Void) {
+        recipeRepository.fetchRecipes(by: ingredientID, completion: completion)
     }
 }

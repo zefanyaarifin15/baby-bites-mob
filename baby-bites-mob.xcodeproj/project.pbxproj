@@ -81,6 +81,7 @@
 		FAEA48132C748B14009D15C9 /* FetchAllRecipesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllRecipesUseCase.swift; sourceTree = "<group>"; };
 		FAEA48152C748B1F009D15C9 /* FetchAllIngredientsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllIngredientsUseCase.swift; sourceTree = "<group>"; };
 		FAEA48172C748F1C009D15C9 /* CloudKitIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitIngredientRepository.swift; sourceTree = "<group>"; };
+		FAEA48192C74957A009D15C9 /* baby-bites-mob.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "baby-bites-mob.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +132,7 @@
 		FAEA47A82C747A05009D15C9 /* baby-bites-mob */ = {
 			isa = PBXGroup;
 			children = (
+				FAEA48192C74957A009D15C9 /* baby-bites-mob.entitlements */,
 				FAEA47E22C747B0B009D15C9 /* Resources */,
 				FAEA47E12C747AFB009D15C9 /* Presentation */,
 				FAEA47E02C747AF2009D15C9 /* Infrastructure */,
@@ -720,6 +722,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "baby-bites-mob/baby-bites-mob.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SW32R8WLA2;
@@ -748,6 +751,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "baby-bites-mob/baby-bites-mob.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SW32R8WLA2;
