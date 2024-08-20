@@ -16,6 +16,22 @@
 		FAEA47C12C747A06009D15C9 /* baby_bites_mobTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA47C02C747A06009D15C9 /* baby_bites_mobTests.swift */; };
 		FAEA47CB2C747A06009D15C9 /* baby_bites_mobUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA47CA2C747A06009D15C9 /* baby_bites_mobUITests.swift */; };
 		FAEA47CD2C747A06009D15C9 /* baby_bites_mobUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA47CC2C747A06009D15C9 /* baby_bites_mobUITestsLaunchTests.swift */; };
+		FAEA47E92C747CD7009D15C9 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA47E82C747C78009D15C9 /* Recipe.swift */; };
+		FAEA47EB2C747EBD009D15C9 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA47EA2C747EB9009D15C9 /* Ingredient.swift */; };
+		FAEA47F02C748199009D15C9 /* RecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA47EF2C748197009D15C9 /* RecipeRepository.swift */; };
+		FAEA47F22C748230009D15C9 /* CloudKitRecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA47F12C7481B6009D15C9 /* CloudKitRecipeRepository.swift */; };
+		FAEA47F42C7487CA009D15C9 /* SaveRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA47F32C7487C7009D15C9 /* SaveRecipeUseCase.swift */; };
+		FAEA48032C748963009D15C9 /* IngredientsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48022C74895C009D15C9 /* IngredientsListViewModel.swift */; };
+		FAEA48052C748977009D15C9 /* RecommendationsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48042C74896D009D15C9 /* RecommendationsListViewModel.swift */; };
+		FAEA48082C74898F009D15C9 /* IngredientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48072C748989009D15C9 /* IngredientDetailsViewModel.swift */; };
+		FAEA480A2C748997009D15C9 /* RecipeDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48092C748992009D15C9 /* RecipeDetailsViewModel.swift */; };
+		FAEA480C2C7489DB009D15C9 /* FetchIngredientUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA480B2C7489D7009D15C9 /* FetchIngredientUseCase.swift */; };
+		FAEA480E2C748A10009D15C9 /* IngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA480D2C748A0C009D15C9 /* IngredientRepository.swift */; };
+		FAEA48102C748AD9009D15C9 /* SaveIngredientUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA480F2C748AD4009D15C9 /* SaveIngredientUseCase.swift */; };
+		FAEA48122C748B01009D15C9 /* FetchRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48112C748AFC009D15C9 /* FetchRecipeUseCase.swift */; };
+		FAEA48142C748B1A009D15C9 /* FetchAllRecipesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48132C748B14009D15C9 /* FetchAllRecipesUseCase.swift */; };
+		FAEA48162C748B25009D15C9 /* FetchAllIngredientsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48152C748B1F009D15C9 /* FetchAllIngredientsUseCase.swift */; };
+		FAEA48182C748F23009D15C9 /* CloudKitIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48172C748F1C009D15C9 /* CloudKitIngredientRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +65,22 @@
 		FAEA47C62C747A06009D15C9 /* baby-bites-mobUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "baby-bites-mobUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEA47CA2C747A06009D15C9 /* baby_bites_mobUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baby_bites_mobUITests.swift; sourceTree = "<group>"; };
 		FAEA47CC2C747A06009D15C9 /* baby_bites_mobUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baby_bites_mobUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FAEA47E82C747C78009D15C9 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		FAEA47EA2C747EB9009D15C9 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		FAEA47EF2C748197009D15C9 /* RecipeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepository.swift; sourceTree = "<group>"; };
+		FAEA47F12C7481B6009D15C9 /* CloudKitRecipeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitRecipeRepository.swift; sourceTree = "<group>"; };
+		FAEA47F32C7487C7009D15C9 /* SaveRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRecipeUseCase.swift; sourceTree = "<group>"; };
+		FAEA48022C74895C009D15C9 /* IngredientsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListViewModel.swift; sourceTree = "<group>"; };
+		FAEA48042C74896D009D15C9 /* RecommendationsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsListViewModel.swift; sourceTree = "<group>"; };
+		FAEA48072C748989009D15C9 /* IngredientDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDetailsViewModel.swift; sourceTree = "<group>"; };
+		FAEA48092C748992009D15C9 /* RecipeDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewModel.swift; sourceTree = "<group>"; };
+		FAEA480B2C7489D7009D15C9 /* FetchIngredientUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchIngredientUseCase.swift; sourceTree = "<group>"; };
+		FAEA480D2C748A0C009D15C9 /* IngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRepository.swift; sourceTree = "<group>"; };
+		FAEA480F2C748AD4009D15C9 /* SaveIngredientUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveIngredientUseCase.swift; sourceTree = "<group>"; };
+		FAEA48112C748AFC009D15C9 /* FetchRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecipeUseCase.swift; sourceTree = "<group>"; };
+		FAEA48132C748B14009D15C9 /* FetchAllRecipesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllRecipesUseCase.swift; sourceTree = "<group>"; };
+		FAEA48152C748B1F009D15C9 /* FetchAllIngredientsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllIngredientsUseCase.swift; sourceTree = "<group>"; };
+		FAEA48172C748F1C009D15C9 /* CloudKitIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitIngredientRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +131,12 @@
 		FAEA47A82C747A05009D15C9 /* baby-bites-mob */ = {
 			isa = PBXGroup;
 			children = (
+				FAEA47E22C747B0B009D15C9 /* Resources */,
+				FAEA47E12C747AFB009D15C9 /* Presentation */,
+				FAEA47E02C747AF2009D15C9 /* Infrastructure */,
+				FAEA47DF2C747AE5009D15C9 /* Domain */,
+				FAEA47DE2C747AE0009D15C9 /* Data */,
+				FAEA47DD2C747ADA009D15C9 /* Application */,
 				FAEA47A92C747A05009D15C9 /* AppDelegate.swift */,
 				FAEA47AB2C747A05009D15C9 /* SceneDelegate.swift */,
 				FAEA47AD2C747A05009D15C9 /* ViewController.swift */,
@@ -125,6 +163,232 @@
 				FAEA47CC2C747A06009D15C9 /* baby_bites_mobUITestsLaunchTests.swift */,
 			);
 			path = "baby-bites-mobUITests";
+			sourceTree = "<group>";
+		};
+		FAEA47DD2C747ADA009D15C9 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		FAEA47DE2C747AE0009D15C9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47E52C747B53009D15C9 /* Repositories */,
+				FAEA47E42C747B37009D15C9 /* PersistentStorages */,
+				FAEA47E32C747B2C009D15C9 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		FAEA47DF2C747AE5009D15C9 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47ED2C74803B009D15C9 /* UseCases */,
+				FAEA47EC2C748035009D15C9 /* Interfaces */,
+				FAEA47E72C747C3D009D15C9 /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		FAEA47E02C747AF2009D15C9 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		FAEA47E12C747AFB009D15C9 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47F52C748818009D15C9 /* RecipeScene */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		FAEA47E22C747B0B009D15C9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FAEA47E32C747B2C009D15C9 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		FAEA47E42C747B37009D15C9 /* PersistentStorages */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47E62C747BCC009D15C9 /* CoreDataStorage */,
+			);
+			path = PersistentStorages;
+			sourceTree = "<group>";
+		};
+		FAEA47E52C747B53009D15C9 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47F12C7481B6009D15C9 /* CloudKitRecipeRepository.swift */,
+				FAEA48172C748F1C009D15C9 /* CloudKitIngredientRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		FAEA47E62C747BCC009D15C9 /* CoreDataStorage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreDataStorage;
+			sourceTree = "<group>";
+		};
+		FAEA47E72C747C3D009D15C9 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47EA2C747EB9009D15C9 /* Ingredient.swift */,
+				FAEA47E82C747C78009D15C9 /* Recipe.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		FAEA47EC2C748035009D15C9 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47EE2C748049009D15C9 /* Repositories */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		FAEA47ED2C74803B009D15C9 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA48152C748B1F009D15C9 /* FetchAllIngredientsUseCase.swift */,
+				FAEA48132C748B14009D15C9 /* FetchAllRecipesUseCase.swift */,
+				FAEA48112C748AFC009D15C9 /* FetchRecipeUseCase.swift */,
+				FAEA480F2C748AD4009D15C9 /* SaveIngredientUseCase.swift */,
+				FAEA480B2C7489D7009D15C9 /* FetchIngredientUseCase.swift */,
+				FAEA47F32C7487C7009D15C9 /* SaveRecipeUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		FAEA47EE2C748049009D15C9 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA480D2C748A0C009D15C9 /* IngredientRepository.swift */,
+				FAEA47EF2C748197009D15C9 /* RecipeRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		FAEA47F52C748818009D15C9 /* RecipeScene */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47FD2C748884009D15C9 /* RecipeDetails */,
+				FAEA47FC2C74887D009D15C9 /* IngredientDetails */,
+				FAEA47F92C748851009D15C9 /* IngredientsList */,
+				FAEA47F62C748825009D15C9 /* RecommendationsList */,
+			);
+			path = RecipeScene;
+			sourceTree = "<group>";
+		};
+		FAEA47F62C748825009D15C9 /* RecommendationsList */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47F82C748838009D15C9 /* ViewModel */,
+				FAEA47F72C748833009D15C9 /* View */,
+			);
+			path = RecommendationsList;
+			sourceTree = "<group>";
+		};
+		FAEA47F72C748833009D15C9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAEA47F82C748838009D15C9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA48042C74896D009D15C9 /* RecommendationsListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FAEA47F92C748851009D15C9 /* IngredientsList */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47FB2C748872009D15C9 /* ViewModel */,
+				FAEA47FA2C74886E009D15C9 /* View */,
+			);
+			path = IngredientsList;
+			sourceTree = "<group>";
+		};
+		FAEA47FA2C74886E009D15C9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAEA47FB2C748872009D15C9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA48022C74895C009D15C9 /* IngredientsListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FAEA47FC2C74887D009D15C9 /* IngredientDetails */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA47FF2C748893009D15C9 /* View */,
+				FAEA47FE2C74888F009D15C9 /* ViewModel */,
+			);
+			path = IngredientDetails;
+			sourceTree = "<group>";
+		};
+		FAEA47FD2C748884009D15C9 /* RecipeDetails */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA48012C7488B5009D15C9 /* View */,
+				FAEA48002C748896009D15C9 /* ViewModel */,
+			);
+			path = RecipeDetails;
+			sourceTree = "<group>";
+		};
+		FAEA47FE2C74888F009D15C9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA48072C748989009D15C9 /* IngredientDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FAEA47FF2C748893009D15C9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAEA48002C748896009D15C9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAEA48092C748992009D15C9 /* RecipeDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FAEA48012C7488B5009D15C9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,9 +522,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAEA48102C748AD9009D15C9 /* SaveIngredientUseCase.swift in Sources */,
+				FAEA480E2C748A10009D15C9 /* IngredientRepository.swift in Sources */,
 				FAEA47AE2C747A05009D15C9 /* ViewController.swift in Sources */,
+				FAEA48142C748B1A009D15C9 /* FetchAllRecipesUseCase.swift in Sources */,
+				FAEA480A2C748997009D15C9 /* RecipeDetailsViewModel.swift in Sources */,
+				FAEA47F02C748199009D15C9 /* RecipeRepository.swift in Sources */,
+				FAEA47F22C748230009D15C9 /* CloudKitRecipeRepository.swift in Sources */,
+				FAEA48082C74898F009D15C9 /* IngredientDetailsViewModel.swift in Sources */,
 				FAEA47AA2C747A05009D15C9 /* AppDelegate.swift in Sources */,
+				FAEA480C2C7489DB009D15C9 /* FetchIngredientUseCase.swift in Sources */,
+				FAEA47EB2C747EBD009D15C9 /* Ingredient.swift in Sources */,
+				FAEA48182C748F23009D15C9 /* CloudKitIngredientRepository.swift in Sources */,
+				FAEA48052C748977009D15C9 /* RecommendationsListViewModel.swift in Sources */,
 				FAEA47AC2C747A05009D15C9 /* SceneDelegate.swift in Sources */,
+				FAEA48032C748963009D15C9 /* IngredientsListViewModel.swift in Sources */,
+				FAEA47E92C747CD7009D15C9 /* Recipe.swift in Sources */,
+				FAEA48122C748B01009D15C9 /* FetchRecipeUseCase.swift in Sources */,
+				FAEA47F42C7487CA009D15C9 /* SaveRecipeUseCase.swift in Sources */,
+				FAEA48162C748B25009D15C9 /* FetchAllIngredientsUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
