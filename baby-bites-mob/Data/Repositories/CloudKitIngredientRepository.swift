@@ -11,12 +11,12 @@ class CloudKitIngredientRepository: IngredientRepository {
     
     // Fetch all ingredients
     func fetchIngredients(completion: @escaping (Result<[Ingredient], Error>) -> Void) {
-        let privateDatabase = CKContainer.default().privateCloudDatabase
+        let publicDatabase = CKContainer.default().publicCloudDatabase
         let query = CKQuery(recordType: "Ingredient", predicate: NSPredicate(value: true))
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true) // Adjust key as needed
         query.sortDescriptors = [sortDescriptor]
         
-        privateDatabase.perform(query, inZoneWith: nil) { results, error in
+        publicDatabase.perform(query, inZoneWith: nil) { results, error in
             if let error = error {
                 completion(.failure(error))
             } else if let records = results {
@@ -31,8 +31,8 @@ class CloudKitIngredientRepository: IngredientRepository {
     // Save an ingredient
     func saveIngredient(_ ingredient: Ingredient, completion: @escaping (Result<Void, Error>) -> Void) {
         let record = ingredient.toCKRecord()
-        let privateDatabase = CKContainer.default().privateCloudDatabase
-        privateDatabase.save(record) { savedRecord, error in
+        let publicDatabase = CKContainer.default().publicCloudDatabase
+        publicDatabase.save(record) { savedRecord, error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -43,9 +43,9 @@ class CloudKitIngredientRepository: IngredientRepository {
     
     // Fetch a specific ingredient by ID
     func fetchIngredient(by id: String, completion: @escaping (Result<Ingredient, Error>) -> Void) {
-        let privateDatabase = CKContainer.default().privateCloudDatabase
+        let publicDatabase = CKContainer.default().publicCloudDatabase
         let recordID = CKRecord.ID(recordName: id)
-        privateDatabase.fetch(withRecordID: recordID) { record, error in
+        publicDatabase.fetch(withRecordID: recordID) { record, error in
             if let error = error {
                 completion(.failure(error))
             } else if let record = record {
