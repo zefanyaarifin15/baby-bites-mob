@@ -36,7 +36,7 @@ class Recipe: Equatable, Identifiable {
     var ingredients: Ingredient?
     var preparationInstructions: NSAttributedString?
     
-    init(record: CKRecord, fetchIngredient: @escaping (CKRecord.ID, @escaping (Ingredient?) -> Void) -> Void) {
+    init(record: CKRecord, fetchIngredient: ((CKRecord.ID, @escaping (Ingredient?) -> Void) -> Void)? = nil) {
         self.id = record.recordID.recordName
         self.title = record["title"] as? String
         self.category = (record["category"] as? String).flatMap { Category(rawValue: $0) }
@@ -46,9 +46,12 @@ class Recipe: Equatable, Identifiable {
         self.texture = (record["texture"] as? String).flatMap { Texture(rawValue: $0) }
         
         if let ingredientRecordReference = record["ingredients"] as? CKRecord.Reference {
-            fetchIngredient(ingredientRecordReference.recordID) { ingredient in
+            fetchIngredient?(ingredientRecordReference.recordID) { ingredient in
                 self.ingredients = ingredient
             }
+        } else {
+            // If there is no ingredient reference, you can either set ingredients to nil or handle it another way.
+            self.ingredients = nil
         }
         
         if let instructionsData = record["preparationInstructions"] as? Data {

@@ -7,7 +7,7 @@
 
 import CloudKit
 
-class CloudKitIngredientRepository {
+class CloudKitIngredientRepository: IngredientRepository {
     
     // Fetch all ingredients
     func fetchIngredients(completion: @escaping (Result<[Ingredient], Error>) -> Void) {
