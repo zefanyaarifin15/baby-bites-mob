@@ -6,97 +6,138 @@
 //
 
 import UIKit
+import Combine
 
-class IngredientViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
-    
-    // MARK: - UI Components
-    let searchBar = UISearchBar()
-    let collectionView: UICollectionView
-    
-    // MARK: - Initialization
-    init() {
-        // Set up the Collection View layout
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 150) // Size of each cell
-        layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16) // Padding between cells
-        layout.minimumLineSpacing = 16 // Space between rows
-        layout.minimumInteritemSpacing = 16 // Space between columns
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+class IngredientDetailsViewController: UIViewController {
+    private var viewModel: IngredientDetailsViewModel
+    private var cancellables = Set<AnyCancellable>()
+
+    private let ingredientImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
+    private let ingredientNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let ingredientDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let dishInspirationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Dish Inspiration"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let separatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+
+    init(viewModel: IngredientDetailsViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        configureTabBar()
+        bindViewModel()
     }
-    
-    // MARK: - Setup UI
+
     private func setupUI() {
-        view.backgroundColor = .white
-        title = "Library"
-        
-        // Setup Search Bar
-        searchBar.delegate = self
-        searchBar.placeholder = "Search"
-        searchBar.searchBarStyle = .minimal
-        view.addSubview(searchBar)
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        title = "Ingredient Detail"
+        view.backgroundColor = .systemBackground
+
+        view.addSubview(ingredientImageView)
+        view.addSubview(ingredientNameLabel)
+        view.addSubview(ingredientDescriptionLabel)
+        view.addSubview(separatorView)
+        view.addSubview(dishInspirationLabel)
+        view.addSubview(tableView)
+
+        tableView.dataSource = self
+        tableView.register(RecipeTableViewCell.self, forCellReuseIdentifier: RecipeTableViewCell.identifier)
+
+        setupConstraints()
+    }
+
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            ingredientImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            ingredientImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            ingredientImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            ingredientImageView.heightAnchor.constraint(equalToConstant: 200),
+
+            ingredientNameLabel.topAnchor.constraint(equalTo: ingredientImageView.bottomAnchor, constant: 10),
+            ingredientNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            ingredientNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+
+            ingredientDescriptionLabel.topAnchor.constraint(equalTo: ingredientNameLabel.bottomAnchor, constant: 10),
+            ingredientDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            ingredientDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+
+            separatorView.topAnchor.constraint(equalTo: ingredientDescriptionLabel.bottomAnchor, constant: 10),
+            separatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            separatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            separatorView.heightAnchor.constraint(equalToConstant: 1),
+
+            dishInspirationLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 10),
+            dishInspirationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            dishInspirationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+
+            tableView.topAnchor.constraint(equalTo: dishInspirationLabel.bottomAnchor, constant: 10),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        // Setup Collection View
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = .white
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        view.addSubview(collectionView)
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+    }
+
+    private func bindViewModel() {
+        viewModel.$ingredient
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ingredient in
+                self?.ingredientNameLabel.text = ingredient?.name
+            }
+            .store(in: &cancellables)
+    }
+}
+
+extension IngredientDetailsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.recipes.count
     }
     
-    // MARK: - Collection View Data Source
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6 // Number of items
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .lightGray // Placeholder color
-        cell.layer.cornerRadius = 10 // Rounded corners
-        return cell
-    }
-    
-    // MARK: - Tab Bar Configuration
-    private func configureTabBar() {
-        let tabBarController = UITabBarController()
-        let recommendationVC = UIViewController()
-        recommendationVC.view.backgroundColor = .white
-        recommendationVC.tabBarItem = UITabBarItem(title: "Recommendation", image: UIImage(systemName: "star.fill"), selectedImage: UIImage(systemName: "star.fill"))
-        
-        let libraryVC = UINavigationController(rootViewController: self)
-        libraryVC.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "books.vertical.fill"), selectedImage: UIImage(systemName: "books.vertical.fill"))
-        
-        tabBarController.viewControllers = [recommendationVC, libraryVC]
-        tabBarController.selectedIndex = 1
-        view.addSubview(tabBarController.view)
-        addChild(tabBarController)
-        tabBarController.didMove(toParent: self)
-    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
+            let recipe = viewModel.recipes[indexPath.row]
+            cell.configure(with: recipe)
+            return cell
+        }
 }

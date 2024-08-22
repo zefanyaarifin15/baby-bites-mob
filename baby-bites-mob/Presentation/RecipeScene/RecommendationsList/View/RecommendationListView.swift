@@ -1,31 +1,26 @@
 //
-//  IngredientsListView.swift
+//  RecommendationListView.swift
 //  baby-bites-mob
 //
-//  Created by Mika S Rahwono on 21/08/24.
+//  Created by Mika S Rahwono on 22/08/24.
 //
 
 import UIKit
 import Combine
 
-class IngredientsListViewController: UIViewController {
-    private var viewModel: IngredientsListViewModel
+class RecommendationListViewController: UIViewController {
+    private var viewModel: RecommendationViewModel
     private var cancellables = Set<AnyCancellable>()
-    
-    private let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search"
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        return searchBar
-    }()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 150)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 100) // Full width with padding
         layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        layout.minimumLineSpacing = 16 // Space between rows
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(IngredientCell.self, forCellWithReuseIdentifier: IngredientCell.identifier)
+        collectionView.register(RecipeCell.self, forCellWithReuseIdentifier: RecipeCell.identifier)
+        collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -46,7 +41,7 @@ class IngredientsListViewController: UIViewController {
         return label
     }()
     
-    init(viewModel: IngredientsListViewModel) {
+    init(viewModel: RecommendationViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -59,16 +54,14 @@ class IngredientsListViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
-        viewModel.fetchAllIngredients()
     }
     
     private func setupUI() {
-        title = "Library"
-        view.backgroundColor = .clear
-        
+        title = "Recommendation"
+        view.backgroundColor = UIColor.systemGroupedBackground
+
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        view.addSubview(searchBar)
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
         view.addSubview(errorLabel)
@@ -76,11 +69,7 @@ class IngredientsListViewController: UIViewController {
         collectionView.dataSource = self
         
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -96,7 +85,7 @@ class IngredientsListViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.$ingredients
+        viewModel.$recommendations
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.collectionView.reloadData()
@@ -124,30 +113,15 @@ class IngredientsListViewController: UIViewController {
     }
 }
 
-extension IngredientsListViewController: UICollectionViewDataSource {
+extension RecommendationListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.ingredients.count
+        return viewModel.recommendations.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IngredientCell.identifier, for: indexPath) as! IngredientCell
-        let ingredient = viewModel.ingredients[indexPath.item]
-        cell.configure(with: ingredient) { [weak self] in
-            self?.navigateToRecipeList(for: ingredient)
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
+        let recipe = viewModel.recommendations[indexPath.item]
+        cell.configure(with: recipe)
         return cell
-    }
-    
-    private func navigateToRecipeList(for ingredient: Ingredient) {
-        let ingredientRepository = CloudKitIngredientRepository()
-        let recipeRepository = CloudKitRecipeRepository(ingredientRepository: ingredientRepository)
-        let fetchIngredientUseCase = FetchIngredientUseCase(ingredientRepository: ingredientRepository)
-        let fetchRecipesByIngredientUseCase = FetchRecipesByIngredientUseCase(recipeRepository: recipeRepository)
-        let ingredientDetailsViewModel = IngredientDetailsViewModel(
-            ingredientID: ingredient.id,
-            fetchIngredientUseCase: fetchIngredientUseCase,
-            fetchRecipesByIngredientUseCase: fetchRecipesByIngredientUseCase)
-        let ingredientDetailsViewController = IngredientDetailsViewController(viewModel: ingredientDetailsViewModel)
-        navigationController?.pushViewController(ingredientDetailsViewController, animated: true)
     }
 }
