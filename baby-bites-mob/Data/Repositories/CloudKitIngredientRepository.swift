@@ -13,7 +13,7 @@ class CloudKitIngredientRepository: IngredientRepository {
     func fetchIngredients(completion: @escaping (Result<[Ingredient], Error>) -> Void) {
         let publicDatabase = CKContainer.default().publicCloudDatabase
         let query = CKQuery(recordType: "Ingredient", predicate: NSPredicate(value: true))
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true) // Adjust key as needed
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         query.sortDescriptors = [sortDescriptor]
         
         publicDatabase.perform(query, inZoneWith: nil) { results, error in
@@ -21,6 +21,7 @@ class CloudKitIngredientRepository: IngredientRepository {
                 completion(.failure(error))
             } else if let records = results {
                 let ingredients = records.map { Ingredient(record: $0) }
+                print(ingredients)
                 completion(.success(ingredients))
             } else {
                 completion(.success([])) // Handle the case where no ingredients are found
