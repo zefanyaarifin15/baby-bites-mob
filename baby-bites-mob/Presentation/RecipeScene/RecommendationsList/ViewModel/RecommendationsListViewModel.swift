@@ -9,35 +9,42 @@ import Combine
 import Foundation
 
 class RecommendationViewModel: ObservableObject {
-    private var allRecipes: [Favorite<Recipe>] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
-    @Published private(set) var recipes: [Recipe] = []
     @Published private(set) var recommendations: [Recipe] = []
     
-    private let recommendationPredictor: RecommendationPredictor
+    private let recommendationTracker: RecommendationTracker
     private var recommendationsTask: Task<Void, Never>?
-    
-    private let fetchAllRecipesUseCase: FetchAllRecipesUseCase
-    private var cancellables = Set<AnyCancellable>()
 
-
-    init(recommendationPredictor: RecommendationPredictor = RecommendationPredictor(), fetchAllRecipesUseCase: FetchAllRecipesUseCase) {
-        self.recommendationPredictor = recommendationPredictor
-        self.fetchAllRecipesUseCase = fetchAllRecipesUseCase
+    init(recommendationTracker: RecommendationTracker) {
+        self.recommendationTracker = recommendationTracker
+        initializeRecommendation()
     }
-
-    func fetchAllRecipes(by recipeID: String) {
+    
+    func initializeRecommendation() {
         isLoading = true
-        fetchAllRecipesUseCase.execute() { [weak self] result in
+        recommendationTracker.isHasLiked { [weak self] result in
             DispatchQueue.main.async {
-                self?.isLoading = false
                 switch result {
-                case .success(let recipe):
-                    self?.recipes = recipe
-                    self?.errorMessage = nil
+                case .success(let isHasLiked):
+                    if isHasLiked {
+                        self?.recommendationTracker.getRecommendations { [weak self] result in
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .success(let recommendations):
+                                    self?.recommendations = recommendations
+                                    self?.errorMessage = nil
+                                case .failure(let error):
+                                    self?.recommendations = []
+                                    self?.errorMessage = error.localizedDescription
+                                }
+                            }
+                        }
+                    } else {
+                        self?.recommendations = []
+                    }
                 case .failure(let error):
-                    self?.recipes = []
+                    self?.recommendations = []
                     self?.errorMessage = error.localizedDescription
                 }
             }

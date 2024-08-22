@@ -16,8 +16,15 @@ class MainViewController: UITabBarController {
     
     private func setupTabBar() {
         let ingredientRepository = CloudKitIngredientRepository()
+        let recipeRepository = CloudKitRecipeRepository(ingredientRepository: ingredientRepository)
+        
         let ingredientsListViewModel = IngredientsListViewModel(fetchIngredientsUseCase: FetchAllIngredientsUseCase(ingredientRepository: ingredientRepository))
+        
+        let fetchAllRecipesUseCase = FetchAllRecipesUseCase(recipeRepository: recipeRepository)
+        let recommendationTracker = RecommendationTracker(fetchAllRecipesUseCase: fetchAllRecipesUseCase)
+        let recommendationsListViewModel = RecommendationViewModel(recommendationTracker: recommendationTracker)
         let ingredientsListVC = UINavigationController(rootViewController: IngredientsListViewController(viewModel: ingredientsListViewModel))
+        
         ingredientsListVC.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "books.vertical"), tag: 0)
         
         let recommendationsVC = UIViewController() // Placeholder for the second tab
