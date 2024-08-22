@@ -21,8 +21,8 @@ class Recipe: Equatable, Identifiable {
     enum Texture: String {
         case pureed
         case mashed
-        case softChunks
         case smooth
+        case softChunks
         case lumpy
     }
     
@@ -38,25 +38,32 @@ class Recipe: Equatable, Identifiable {
     
     init(record: CKRecord, fetchIngredient: ((CKRecord.ID, @escaping (Ingredient?) -> Void) -> Void)? = nil) {
         self.id = record.recordID.recordName
-        self.title = record["title"] as? String
-        self.category = (record["category"] as? String).flatMap { Category(rawValue: $0) }
-        self.imageUrl = record["imageUrl"] as? String
-        self.description = record["description"] as? String
-        self.cookingTime = record["cookingTime"] as? TimeInterval
-        self.texture = (record["texture"] as? String).flatMap { Texture(rawValue: $0) }
-        
-        if let ingredientRecordReference = record["ingredients"] as? CKRecord.Reference {
-            fetchIngredient?(ingredientRecordReference.recordID) { ingredient in
+        self.title = record["title"] as? String ?? ""
+        if let categoryRaw = record["category"] as? String {
+            self.category = Category(rawValue: categoryRaw)
+        } else {
+            self.category = nil
+        }
+        self.imageUrl = record["imageUrl"] as? String ?? ""
+        self.description = record["description"] as? String ?? ""
+        self.cookingTime = record["cookingTime"] as? TimeInterval ?? nil
+        if let textureRaw = record["texture"] as? String {
+            self.texture = Texture(rawValue: textureRaw)
+        } else {
+            self.texture = nil
+        }
+        if let ingredientReference = record["ingredients"] as? CKRecord.Reference {
+                fetchIngredient?(ingredientReference.recordID) { ingredient in
                 self.ingredients = ingredient
             }
         } else {
-            // If there is no ingredient reference, you can either set ingredients to nil or handle it another way.
             self.ingredients = nil
         }
-        
         if let instructionsData = record["preparationInstructions"] as? Data {
             self.preparationInstructions = NSKeyedUnarchiver.unarchiveObject(with: instructionsData) as? NSAttributedString
         }
+        print(self.id)
+        print("selesai")
     }
 
     func toCKRecord() -> CKRecord {

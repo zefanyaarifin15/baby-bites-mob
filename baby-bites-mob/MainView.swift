@@ -18,19 +18,19 @@ class MainViewController: UITabBarController {
         let ingredientRepository = CloudKitIngredientRepository()
         let recipeRepository = CloudKitRecipeRepository(ingredientRepository: ingredientRepository)
         
+        // Setup Ingredients List ViewModel and ViewController
         let ingredientsListViewModel = IngredientsListViewModel(fetchIngredientsUseCase: FetchAllIngredientsUseCase(ingredientRepository: ingredientRepository))
-        
-        let fetchAllRecipesUseCase = FetchAllRecipesUseCase(recipeRepository: recipeRepository)
-        let recommendationTracker = RecommendationTracker(fetchAllRecipesUseCase: fetchAllRecipesUseCase)
-        let recommendationsListViewModel = RecommendationViewModel(recommendationTracker: recommendationTracker)
         let ingredientsListVC = UINavigationController(rootViewController: IngredientsListViewController(viewModel: ingredientsListViewModel))
-        
         ingredientsListVC.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "books.vertical"), tag: 0)
         
-        let recommendationsVC = UIViewController() // Placeholder for the second tab
-        recommendationsVC.view.backgroundColor = .white
+        // Setup Recommendations ViewModel and ViewController
+        let fetchAllRecipesUseCase = FetchAllRecipesUseCase(recipeRepository: recipeRepository)
+        let recommendationTracker = RecommendationTracker(fetchAllRecipesUseCase: fetchAllRecipesUseCase)
+        let recommendationsViewModel = RecommendationViewModel(recommendationTracker: recommendationTracker)
+        let recommendationsVC = UINavigationController(rootViewController: RecommendationListViewController(viewModel: recommendationsViewModel))
         recommendationsVC.tabBarItem = UITabBarItem(title: "Recommendation", image: UIImage(systemName: "star"), tag: 1)
         
+        // Set ViewControllers
         viewControllers = [recommendationsVC, ingredientsListVC]
         
         tabBar.tintColor = .systemBlue
